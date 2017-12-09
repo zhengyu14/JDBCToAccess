@@ -27,24 +27,19 @@ public class ReadStudent extends Frame {
         add(btnRead);
         
         btnRead.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 String studentNumber = tfStudentNumber.getText();
                 
-                try
-                {
+                try {
                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
                     con = DriverManager.getConnection("jdbc:odbc:student");
-
                     strSql = "SELECT * FROM student WHERE studentNumber = ?";
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
                     ps.executeUpdate();
+                    rs = ps.getResultSet();
                 }
-                catch(Exception ex)
-                {
-
-                }
+                catch(Exception ex) { }
             }
         });
         

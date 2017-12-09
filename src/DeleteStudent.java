@@ -27,12 +27,10 @@ public class DeleteStudent extends Frame {
         add(btnDelete);
 
         btnDelete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
             		String studentNumber = tfStudentNumber.getText();
 
-                try
-                {
+                try {
                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
                     con = DriverManager.getConnection("jdbc:odbc:student");
                     strSql = "DELETE FROM student WHERE studentNumber = ?";
@@ -40,10 +38,7 @@ public class DeleteStudent extends Frame {
                     ps.setString(1, studentNumber);
                     ps.executeUpdate();
                 }
-                catch(Exception ex)
-                {
-
-                }
+                catch(Exception ex) { }
             }
         });
         

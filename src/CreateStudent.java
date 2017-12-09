@@ -39,18 +39,16 @@ public class CreateStudent extends Frame {
         add(btnCreate);
 
         btnCreate.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 String studentNumber = tfStudentNumber.getText();
                 String studentName = tfStudentName.getText();
                 String studentGender = tfStudentGender.getText();
                 String studentAge = tfStudentAge.getText();
 
-                try
-                {
-                	Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+                try {
+                	    Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
                     con = DriverManager.getConnection("jdbc:odbc:student");
-                    strSql="INSERT INTO student ( studentNumber, studentName, studentGender, studentAge ) VALUES (?,?,?,?);";
+                    strSql = "INSERT INTO student ( studentNumber, studentName, studentGender, studentAge ) VALUES (?,?,?,?);";
                     System.out.println(strSql);
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
@@ -59,10 +57,7 @@ public class CreateStudent extends Frame {
                     ps.setInt(4, Integer.parseInt(studentAge));
                     ps.executeUpdate();
                 }
-                catch(Exception ex)
-                {
-
-                }
+                catch(Exception ex){ }
             }
         });
         

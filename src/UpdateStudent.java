@@ -39,29 +39,24 @@ public class UpdateStudent extends Frame{
         
         btnUpdate.addActionListener(new ActionListener()
         {
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 String studentNumber = tfStudentNumber.getText();
                 String studentName = tfStudentName.getText();
                 String studentGender = tfStudentGender.getText();
                 String studentAge = tfStudentAge.getText();
                 
-                try
-                {
+                try {
                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-                    con=DriverManager.getConnection("jdbc:odbc:student");
-                    strSql="UPDATE student SET studentName = ?, studentGender = ?, studentAge = ? WHERE studentNumber = ?";
-                    ps=con.prepareStatement(strSql);
+                    con = DriverManager.getConnection("jdbc:odbc:student");
+                    strSql = "UPDATE student SET studentName = ?, studentGender = ?, studentAge = ? WHERE studentNumber = ?";
+                    ps = con.prepareStatement(strSql);
                     ps.setString(1, studentName);
                     ps.setString(2, studentGender);
                     ps.setInt(3, Integer.parseInt(studentAge));
                     ps.setString(4, studentNumber);
                     ps.executeUpdate();
                 }
-                catch(Exception ex)
-                {
-
-                }
+                catch(Exception ex) { }
             }
         });
         
