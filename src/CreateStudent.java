@@ -48,20 +48,21 @@ public class CreateStudent extends Frame {
 
                 try
                 {
-                    Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-                    con = DriverManager.getConnection("jdbc:odbc:st");
-
-                    strSql="INSERT INTO student ( studentNumber, studentName, studentGender, studentAge ) VALUES ( "
-                        + studentNumber + ", " + studentName + ", " + studentGender + ", " + studentAge + ")";
+                	Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+                    con = DriverManager.getConnection("jdbc:odbc:student");
+                    strSql="INSERT INTO student ( studentNumber, studentName, studentGender, studentAge ) VALUES (?,?,?,?);";
+//                        + studentNumber + ", " + studentName + ", " + studentGender + ", " + studentAge + ")";
+                    System.out.println(strSql);
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
-                    //ps.setInt(2, Integer.parseInt(age));
                     ps.setString(2, studentName);
+                    ps.setString(3, studentGender);
+                    ps.setInt(4, Integer.parseInt(studentAge));
                     ps.executeUpdate();
                 }
                 catch(Exception ex)
                 {
-
+                	System.out.println(ex.toString());
                 }
             }
         });
