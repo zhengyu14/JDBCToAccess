@@ -2,49 +2,47 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class DeleteStudent extends Frame {
+public class DeleteLecture extends Frame {
 
-	Label lbStudentNumber, resultText;
-    TextField tfStudentNumber;
+	Label lbLectureID, resultText;
+    TextField tfLectureID;
     Button btnDelete;
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
     String strSql;
 
-    public DeleteStudent( ) {
+    public DeleteLecture( ) {
         // Label
-        lbStudentNumber = new Label("学号：");
+    		lbLectureID = new Label("讲座编号：");
         resultText = new Label("");
 
         // TextField
-        tfStudentNumber = new TextField(20);
+        tfLectureID = new TextField(20);
 
         // Button
         btnDelete = new Button("删除");
 
-        add(lbStudentNumber);
-        add(tfStudentNumber);
+        add(lbLectureID);
+        add(tfLectureID);
         add(btnDelete);
         add(resultText);
 
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            		String studentNumber = tfStudentNumber.getText();
+            		String lectureID = tfLectureID.getText();
 
                 try {
                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-                    con = DriverManager.getConnection("jdbc:odbc:student");
-                    strSql = "DELETE FROM student WHERE studentNumber = ?";
+                    con = DriverManager.getConnection("jdbc:odbc:lecture");
+                    strSql = "DELETE FROM lecture WHERE lectureID = ?";
                     ps = con.prepareStatement(strSql);
-                    ps.setString(1, studentNumber);
+                    ps.setString(1, lectureID);
                     ps.executeUpdate();
                     resultText.setText("删除成功！");
                     System.out.println("删除成功！");
                 }
-                catch(Exception ex) {
-                	
-                }
+                catch(Exception ex) { }
             }
         });
         
@@ -68,7 +66,7 @@ public class DeleteStudent extends Frame {
     }
 
     public static void main(String[] args) {
-        new DeleteStudent();
+        new DeleteLecture();
     }
 
 }

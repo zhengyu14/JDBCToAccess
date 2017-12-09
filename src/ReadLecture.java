@@ -2,46 +2,46 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class ReadStudent extends Frame {
+public class ReadLecture extends Frame {
 
-	Label lbStudentNumber, queryResult;
-    TextField tfStudentNumber;
+	Label lbLectureID, queryResult;
+    TextField tfLectureID;
     Button btnRead;
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
     String strSql;
 
-    public ReadStudent( ) {
+    public ReadLecture( ) {
     	this.setLayout(new BorderLayout());
         // Label
-        lbStudentNumber = new Label("学号：");
+    		lbLectureID = new Label("讲座编号：");
         queryResult = new Label("");
         
         // TextField
-        tfStudentNumber = new TextField(20);
+        tfLectureID = new TextField(20);
 
         // Button
         btnRead = new Button("查询");
         
-        add(lbStudentNumber);
-        add(tfStudentNumber);
+        add(lbLectureID);
+        add(tfLectureID);
         add(btnRead);
         
         btnRead.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String studentNumber = tfStudentNumber.getText();
+                String lectureID = tfLectureID.getText();
                 
                 try {
                 	String result = null;
                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-                    con = DriverManager.getConnection("jdbc:odbc:student");
-                    strSql = "SELECT * FROM student WHERE studentNumber = ?";
+                    con = DriverManager.getConnection("jdbc:odbc:lecture");
+                    strSql = "SELECT * FROM lecture WHERE lectureID = ?";
                     ps = con.prepareStatement(strSql);
-                    ps.setString(1, studentNumber);
+                    ps.setString(1, lectureID);
                     rs = ps.executeQuery();
                     while (rs.next()) {
-                    	result = "姓名：" + rs.getString(2) + "; 性别：" + rs.getString(3) + "; 年龄：" + rs.getInt(4) + ";";
+                    	result = "讲座名称：" + rs.getString(2) + "; 讲座时间：" + rs.getString(3) + "; 讲座地点：" + rs.getInt(4) + ";";
                     	System.out.println(result);
 					}
                     queryResult.setText(result);
@@ -56,9 +56,7 @@ public class ReadStudent extends Frame {
                     con.commit();
                     con.close();
                 }
-                catch(Exception ex) {
-                	
-                }
+                catch(Exception ex) { }
                 
                 (e.getWindow()).dispose();
                 System.exit(0);
@@ -72,7 +70,7 @@ public class ReadStudent extends Frame {
     }
 
     public static void main(String[] args) {
-        new ReadStudent();
+        new ReadLecture();
     }
 
 }

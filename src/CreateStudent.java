@@ -70,7 +70,9 @@ public class CreateStudent extends Frame {
                     con.commit();
                     con.close();
                 }
-                catch(Exception ex) { }
+                catch(Exception ex) { 
+                	
+                }
                 
                 (e.getWindow()).dispose();
                 System.exit(0);

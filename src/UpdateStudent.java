@@ -20,7 +20,7 @@ public class UpdateStudent extends Frame{
     		resultText = new Label("");
     		
     		// TextField
-    	tfStudentNumber = new TextField(20);
+    		tfStudentNumber = new TextField(20);
         tfStudentName = new TextField(20);
         tfStudentGender = new TextField(2);
         tfStudentAge = new TextField(2);
@@ -39,8 +39,7 @@ public class UpdateStudent extends Frame{
         add(btnUpdate);
         add(resultText);
         
-        btnUpdate.addActionListener(new ActionListener()
-        {
+        btnUpdate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String studentNumber = tfStudentNumber.getText();
                 String studentName = tfStudentName.getText();
@@ -70,7 +69,9 @@ public class UpdateStudent extends Frame{
                     con.commit();
                     con.close();
                 }
-                catch(Exception ex) { }
+                catch(Exception ex) {
+                	
+                }
                 
                 (e.getWindow()).dispose();
                 System.exit(0);
