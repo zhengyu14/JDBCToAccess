@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.sql.*;
 public class UpdateStudent extends Frame{
 
-	Label lbStudentNumber, lbStudentName, lbStudentGender, lbStudentAge;
+	Label lbStudentNumber, lbStudentName, lbStudentGender, lbStudentAge, resultText;
     TextField tfStudentNumber, tfStudentName, tfStudentGender, tfStudentAge;
     Button btnUpdate;
     Connection con;
@@ -17,9 +17,10 @@ public class UpdateStudent extends Frame{
     		lbStudentName = new Label("姓名：");
     		lbStudentGender = new Label("性别：");
     		lbStudentAge = new Label("年龄：");
+    		resultText = new Label("");
     		
     		// TextField
-    		tfStudentNumber = new TextField(20);
+    	tfStudentNumber = new TextField(20);
         tfStudentName = new TextField(20);
         tfStudentGender = new TextField(2);
         tfStudentAge = new TextField(2);
@@ -36,6 +37,7 @@ public class UpdateStudent extends Frame{
         add(lbStudentAge);
         add(tfStudentAge);
         add(btnUpdate);
+        add(resultText);
         
         btnUpdate.addActionListener(new ActionListener()
         {
@@ -55,6 +57,8 @@ public class UpdateStudent extends Frame{
                     ps.setInt(3, Integer.parseInt(studentAge));
                     ps.setString(4, studentNumber);
                     ps.executeUpdate();
+                    resultText.setText("更新成功！");
+                    System.out.println("更新成功！");
                 }
                 catch(Exception ex) { }
             }

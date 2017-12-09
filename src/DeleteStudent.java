@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DeleteStudent extends Frame {
 
-	Label lbStudentNumber;
+	Label lbStudentNumber, resultText;
     TextField tfStudentNumber;
     Button btnDelete;
     Connection con;
@@ -15,6 +15,7 @@ public class DeleteStudent extends Frame {
     public DeleteStudent( ) {
         // Label
         lbStudentNumber = new Label("学号：");
+        resultText = new Label("");
 
         // TextField
         tfStudentNumber = new TextField(20);
@@ -25,6 +26,7 @@ public class DeleteStudent extends Frame {
         add(lbStudentNumber);
         add(tfStudentNumber);
         add(btnDelete);
+        add(resultText);
 
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -37,6 +39,8 @@ public class DeleteStudent extends Frame {
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
                     ps.executeUpdate();
+                    resultText.setText("删除成功！");
+                    System.out.println("删除成功！");
                 }
                 catch(Exception ex) { }
             }

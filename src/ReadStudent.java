@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class ReadStudent extends Frame {
 
-	Label lbStudentNumber;
+	Label lbStudentNumber, queryResult;
     TextField tfStudentNumber;
     Button btnRead;
     Connection con;
@@ -13,15 +13,17 @@ public class ReadStudent extends Frame {
     String strSql;
 
     public ReadStudent( ) {
+    	this.setLayout(new BorderLayout());
         // Label
         lbStudentNumber = new Label("学号：");
-
+        queryResult = new Label("");
+        
         // TextField
         tfStudentNumber = new TextField(20);
 
         // Button
         btnRead = new Button("查询");
-
+        
         add(lbStudentNumber);
         add(tfStudentNumber);
         add(btnRead);
@@ -31,13 +33,18 @@ public class ReadStudent extends Frame {
                 String studentNumber = tfStudentNumber.getText();
                 
                 try {
+                	String result = null;
                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
                     con = DriverManager.getConnection("jdbc:odbc:student");
                     strSql = "SELECT * FROM student WHERE studentNumber = ?";
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
-                    ps.executeUpdate();
-                    rs = ps.getResultSet();
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                    	result = "姓名: " + rs.getString(2) + "; 性别: " + rs.getString(3) + "; 年龄: " + rs.getInt(4) + ";";
+                    	System.out.println(result);
+					}
+                    queryResult.setText(result);
                 }
                 catch(Exception ex) { }
             }
@@ -55,7 +62,7 @@ public class ReadStudent extends Frame {
                 System.exit(0);
             }
         });
-        
+        add(queryResult);
         setLayout(new FlowLayout());
         setSize(300,300);
         setVisible(true);

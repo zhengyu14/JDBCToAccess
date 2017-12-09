@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class CreateStudent extends Frame {
 
-    Label lbStudentNumber, lbStudentName, lbStudentGender, lbStudentAge;
+    Label lbStudentNumber, lbStudentName, lbStudentGender, lbStudentAge, resultText;
     TextField tfStudentNumber, tfStudentName, tfStudentGender, tfStudentAge;
     Button btnCreate;
     Connection con;
@@ -18,6 +18,7 @@ public class CreateStudent extends Frame {
         lbStudentName = new Label("姓名：");
         lbStudentGender = new Label("性别：");
         lbStudentAge = new Label("年龄：");
+        resultText = new Label("");
 
         // TextField
         tfStudentNumber = new TextField(20);
@@ -37,6 +38,7 @@ public class CreateStudent extends Frame {
         add(lbStudentAge);
         add(tfStudentAge);
         add(btnCreate);
+        add(resultText);
 
         btnCreate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -49,13 +51,14 @@ public class CreateStudent extends Frame {
                 	    Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
                     con = DriverManager.getConnection("jdbc:odbc:student");
                     strSql = "INSERT INTO student ( studentNumber, studentName, studentGender, studentAge ) VALUES (?,?,?,?);";
-                    System.out.println(strSql);
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
                     ps.setString(2, studentName);
                     ps.setString(3, studentGender);
                     ps.setInt(4, Integer.parseInt(studentAge));
                     ps.executeUpdate();
+                    resultText.setText("创建成功！");
+                    System.out.println("创建成功！");
                 }
                 catch(Exception ex){ }
             }
