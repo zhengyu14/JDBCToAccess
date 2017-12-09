@@ -26,7 +26,7 @@ public class UpdateStudent extends Frame{
         tfStudentAge = new TextField(2);
         
         // Button
-        btnUpdate = new Button("修改");
+        btnUpdate = new Button("更新");
         
         add(lbStudentNumber);
         add(tfStudentNumber);

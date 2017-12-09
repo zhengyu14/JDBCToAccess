@@ -18,6 +18,7 @@ public class CreateLecture extends Frame {
     		lbLectureName = new Label("讲座名称：");
     		lbLectureTime = new Label("讲座时间：");
     		lbLectureLocation = new Label("讲座地点：");
+    		resultText = new Label();
 
         // TextField
     		tfLectureID = new TextField(20);
@@ -43,17 +44,19 @@ public class CreateLecture extends Frame {
             public void actionPerformed(ActionEvent e) {
                 String lectureID = tfLectureID.getText();
                 String lectureName = tfLectureName.getText();
-                String lectureTime = tfLectureTime.getText();
+                Timestamp lectureTime = Timestamp.valueOf(tfLectureTime.getText());
+//                String lectureTime = tfLectureTime.getText();
                 String lectureLocation = tfLectureLocation.getText();
 
                 try {
                 	    Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
                     con = DriverManager.getConnection("jdbc:odbc:lecture");
+                    System.out.println("1");
                     strSql = "INSERT INTO lecture ( lectureID, lectureName, lectureTime, lectureLocation ) VALUES (?,?,?,?);";
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, lectureID);
                     ps.setString(2, lectureName);
-                    ps.setString(3, lectureTime);
+                    ps.setTimestamp(3, lectureTime);
                     ps.setString(4, lectureLocation);
                     ps.executeUpdate();
                     resultText.setText("创建成功！");

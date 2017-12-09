@@ -13,20 +13,20 @@ public class UpdateLecture extends Frame{
 
     public UpdateLecture() {
     		// Label
-    		lbLectureID = new Label("讲座编号：");
+    	lbLectureID = new Label("讲座编号：");
 		lbLectureName = new Label("讲座名称：");
 		lbLectureTime = new Label("讲座时间：");
 		lbLectureLocation = new Label("讲座地点：");
-    		resultText = new Label("");
-    		
-    		// TextField
-    		tfLectureID = new TextField(20);
-    		tfLectureName = new TextField(20);
-    		tfLectureTime = new TextField(10);
-    		tfLectureLocation = new TextField(20);
-
-        // Button
-    		btnUpdate = new Button("创建");
+		resultText = new Label("");
+		
+		// TextField
+		tfLectureID = new TextField(20);
+		tfLectureName = new TextField(20);
+		tfLectureTime = new TextField(10);
+		tfLectureLocation = new TextField(20);
+		
+		// Button
+		btnUpdate = new Button("更新");
 
         add(lbLectureID);
         add(tfLectureID);
@@ -53,8 +53,9 @@ public class UpdateLecture extends Frame{
                     strSql = "UPDATE lecture SET lectureName = ?, lectureTime = ?, lectureLocation = ? WHERE lectureID = ?";
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, lectureName);
-                    ps.setString(2, lectureTime);
-                    ps.setString(4, lectureLocation);
+                    ps.setTimestamp(2, Timestamp.valueOf(lectureTime));
+                    ps.setString(3, lectureLocation);
+                    ps.setString(4, lectureID);
                     ps.executeUpdate();
                     resultText.setText("更新成功！");
                     System.out.println("更新成功！");

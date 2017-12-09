@@ -41,7 +41,7 @@ public class ReadLecture extends Frame {
                     ps.setString(1, lectureID);
                     rs = ps.executeQuery();
                     while (rs.next()) {
-                    	result = "讲座名称：" + rs.getString(2) + "; 讲座时间：" + rs.getString(3) + "; 讲座地点：" + rs.getInt(4) + ";";
+                    	result = "讲座名称：" + rs.getString(2) + "; 讲座时间：" + rs.getTimestamp(3).toString() + "; 讲座地点：" + rs.getString(4) + ";";
                     	System.out.println(result);
 					}
                     queryResult.setText(result);
