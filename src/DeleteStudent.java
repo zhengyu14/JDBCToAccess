@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class DeleteStudent extends Frame {
 
-	Label lbStudentNumber, lbStudentName, lbStudentGender, lbStudentAge;
-    TextField tfStudentNumber, tfStudentName, tfStudentGender, tfStudentAge;
+	Label lbStudentNumber;
+    TextField tfStudentNumber;
     Button btnDelete;
     Connection con;
     PreparedStatement ps;
@@ -20,7 +20,7 @@ public class DeleteStudent extends Frame {
         tfStudentNumber = new TextField(20);
 
         // Button
-        btnDelete = new Button("创建");
+        btnDelete = new Button("删除");
 
         add(lbStudentNumber);
         add(tfStudentNumber);
@@ -29,18 +29,13 @@ public class DeleteStudent extends Frame {
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                String studentNumber = tfStudentNumber.getText();
-                String studentName = tfStudentName.getText();
-                String studentGender = tfStudentGender.getText();
-                String studentAge = tfStudentAge.getText();
+            		String studentNumber = tfStudentNumber.getText();
 
                 try
                 {
                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-                    con = DriverManager.getConnection("jdbc:odbc:st");
-
-                    strSql="DELETE FROM student WHERE "
-                        + "studentNumber" + " = " + studentName;
+                    con = DriverManager.getConnection("jdbc:odbc:student");
+                    strSql = "DELETE FROM student WHERE studentNumber = ?";
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
                     ps.executeUpdate();
@@ -51,30 +46,27 @@ public class DeleteStudent extends Frame {
                 }
             }
         });
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent e)
-            {
-                try
-                {
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
                     con.commit();
                     con.close();
                 }
-                catch(Exception ex)
-                {
-
-                }
+                catch(Exception ex) { }
+                
                 (e.getWindow()).dispose();
                 System.exit(0);
             }
         });
+        
         setLayout(new FlowLayout());
         setSize(300,300);
         setVisible(true);
+        
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new DeleteStudent();
     }
 

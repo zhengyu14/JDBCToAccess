@@ -51,7 +51,6 @@ public class CreateStudent extends Frame {
                 	Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
                     con = DriverManager.getConnection("jdbc:odbc:student");
                     strSql="INSERT INTO student ( studentNumber, studentName, studentGender, studentAge ) VALUES (?,?,?,?);";
-//                        + studentNumber + ", " + studentName + ", " + studentGender + ", " + studentAge + ")";
                     System.out.println(strSql);
                     ps = con.prepareStatement(strSql);
                     ps.setString(1, studentNumber);
@@ -62,34 +61,31 @@ public class CreateStudent extends Frame {
                 }
                 catch(Exception ex)
                 {
-                	System.out.println(ex.toString());
+
                 }
             }
         });
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent e)
-            {
-                try
-                {
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
                     con.commit();
                     con.close();
                 }
-                catch(Exception ex)
-                {
-
-                }
+                catch(Exception ex) { }
+                
                 (e.getWindow()).dispose();
                 System.exit(0);
             }
         });
+        
         setLayout(new FlowLayout());
         setSize(300,300);
         setVisible(true);
+        
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new CreateStudent();
     }
 
